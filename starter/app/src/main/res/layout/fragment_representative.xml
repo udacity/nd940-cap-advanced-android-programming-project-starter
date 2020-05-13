@@ -10,45 +10,42 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent">
 
-
+        <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/search_title"
-            style="@style/TitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/header_text_size"
-            android:text="@string/representative_search"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- TODO: Add data binding value -->
+        <!-- TODO: Add visual styling and content -->
         <EditText
             android:id="@+id/address_line_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/address_line_1"
             android:autofillHints=""
             android:inputType="textPostalAddress"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_title" />
 
         <!-- TODO: Add data binding value -->
+        <!-- TODO: Add visual styling and content -->
         <EditText
             android:id="@+id/address_line_2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:hint="@string/address_line_2"
             android:autofillHints=""
             android:inputType="textPostalAddress"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/address_line_1" />
 
         <!-- TODO: Add data binding value -->
+        <!-- TODO: Add visual styling and content -->
         <EditText
             android:id="@+id/city"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/city"
             android:autofillHints=""
             android:inputType="textPostalAddress"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,11 +54,11 @@
 
         <!-- TODO: Add default values from provided resources  -->
         <!-- TODO: Add data binding value -->
+        <!-- TODO: Add visual styling and content -->
         <Spinner
             android:id="@+id/state"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:hint="@string/state"
             android:autofillHints=""
             android:inputType="textPostalAddress"
             app:layout_constraintStart_toEndOf="@id/city"
@@ -70,11 +67,11 @@
             app:layout_constraintBottom_toBottomOf="@id/city"/>
 
         <!-- TODO: Add data binding value -->
+        <!-- TODO: Add visual styling and content -->
         <EditText
             android:id="@+id/zip"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/zip"
             android:autofillHints=""
             android:inputType="number"
             android:maxLength="5"
@@ -82,40 +79,35 @@
             app:layout_constraintEnd_toEndOf="@id/city"
             app:layout_constraintTop_toBottomOf="@id/city" />
 
+        <!-- TODO: Add visual styling and label -->
         <Button
             android:id="@+id/button_search"
-            style="@style/PrimaryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/find_my_representatives"
             app:layout_constraintTop_toBottomOf="@id/zip" />
 
+        <!-- TODO: Add visual styling and content -->
         <Button
             android:id="@+id/button_location"
-            style="@style/PrimaryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/use_my_location"
             app:layout_constraintTop_toBottomOf="@id/button_search" />
 
+        <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/representative_title"
-            style="@style/TitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/header_text_size"
-            android:text="@string/my_representatives"
-            android:layout_marginTop="@dimen/double_padding"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_location" />
 
         <!-- TODO: Add Representatives RecyclerView -->
 
+        <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/list_placeholder"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="@string/search_to_find_representatives"
             android:gravity="center"
             android:textAlignment="center"
             android:visibility="gone"
