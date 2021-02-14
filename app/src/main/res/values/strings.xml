@@ -6,5 +6,6 @@
     <string name="find_my_representatives">Find my representatives</string>
     <string name="logo_image_content_description">Voting image</string>
     <string name="saved_elections">Saved Elections</string>
+    <string name="network_error">Whoops! Something went wrong.\nPlease check your Internet connection and try again.</string>
 
 </resources>

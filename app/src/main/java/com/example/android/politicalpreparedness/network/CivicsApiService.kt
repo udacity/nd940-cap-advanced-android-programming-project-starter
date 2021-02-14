@@ -14,9 +14,9 @@ import retrofit2.http.GET
 private const val BASE_URL = "https://www.googleapis.com/civicinfo/v2/"
 
 private val moshi = Moshi.Builder()
-        .add(KotlinJsonAdapterFactory())
         .add(ElectionAdapter())
         .add(DateAdapter())
+        .add(KotlinJsonAdapterFactory())
         .build()
 
 private val retrofit = Retrofit.Builder()
@@ -31,8 +31,8 @@ private val retrofit = Retrofit.Builder()
  */
 
 interface CivicsApiService {
-    @GET("$BASE_URL + elections")
-    fun getElections(): Response<ElectionResponse>
+    @GET("elections")
+    suspend fun getElections(): ElectionResponse
 
     //TODO: Add voterinfo API Call
 
