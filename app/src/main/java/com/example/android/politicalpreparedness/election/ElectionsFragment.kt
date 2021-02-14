@@ -33,7 +33,6 @@ class ElectionsFragment: Fragment() {
 
         //TODO: Add ViewModel values and create ViewModel
 
-        //TODO: Add binding values
         val binding = FragmentElectionBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 
@@ -51,7 +50,7 @@ class ElectionsFragment: Fragment() {
 
         //TODO: Populate recycler adapters
 
-        val division = Division("1", "BlaBla", "Bla")
+        val division = Division("1", "United States", "California")
 
         val upcomingElectionsList = mutableListOf<Election>()
         val savedElectionsList = mutableListOf<Election>()

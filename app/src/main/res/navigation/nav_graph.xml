@@ -27,7 +27,8 @@
     <fragment
         android:id="@+id/voterInfoFragment"
         android:name="com.example.android.politicalpreparedness.election.VoterInfoFragment"
-        android:label="fragment_voter_info">
+        android:label="fragment_voter_info"
+        tools:layout="@layout/fragment_voter_info">
         <argument
             android:name="arg_election_id"
             app:argType="integer" />
@@ -38,6 +39,11 @@
     <fragment
         android:id="@+id/electionsFragment"
         android:name="com.example.android.politicalpreparedness.election.ElectionsFragment"
-        android:label="Elections"/>
+        android:label="Elections"
+        tools:layout="@layout/fragment_election">
+        <action
+            android:id="@+id/action_electionsFragment_to_voterInfoFragment"
+            app:destination="@id/voterInfoFragment" />
+    </fragment>
 
 </navigation>
