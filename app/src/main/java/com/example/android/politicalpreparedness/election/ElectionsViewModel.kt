@@ -1,25 +1,15 @@
 package com.example.android.politicalpreparedness.election
 
-import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
-import com.example.android.politicalpreparedness.database.ElectionDatabase.Companion.getInstance
-import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.models.Election
-import com.example.android.politicalpreparedness.repository.ElectionRepository
-import kotlinx.coroutines.Dispatchers
+import com.example.android.politicalpreparedness.repository.Repository
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import timber.log.Timber
 import java.io.IOException
 
-class ElectionsViewModel(application: Application): AndroidViewModel(application) {
+class ElectionsViewModel(private val repository: Repository): ViewModel() {
 
-    private val database = getInstance(application)
-    private val electionRepository = ElectionRepository(database)
-
-    val upcomingElections = electionRepository.upcomingElections
-    val savedElections = electionRepository.savedElections
+    val upcomingElections = repository.upcomingElections
+    val savedElections = repository.savedElections
 
     private val _errorOnFetchingNetworkData = MutableLiveData<Boolean>(false)
     val errorOnFetchingNetworkData: LiveData<Boolean>
@@ -41,8 +31,6 @@ class ElectionsViewModel(application: Application): AndroidViewModel(application
         _navigateToVoterInfo.value = null
     }
 
-    //TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
-
     init {
         refreshUpcomingElections()
     }
@@ -50,7 +38,7 @@ class ElectionsViewModel(application: Application): AndroidViewModel(application
     private fun refreshUpcomingElections() {
         viewModelScope.launch {
             try {
-                electionRepository.refreshUpcomingElections()
+                repository.refreshUpcomingElections()
                 _errorOnFetchingNetworkData.value = false
             } catch (networkError: IOException) {
                 if(upcomingElections.value.isNullOrEmpty()) {
@@ -59,7 +47,4 @@ class ElectionsViewModel(application: Application): AndroidViewModel(application
             }
         }
     }
-
-    //TODO: Create functions to navigate to saved or upcoming election voter info
-
 }

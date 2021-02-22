@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.android.politicalpreparedness.R
+import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
 import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
 import com.example.android.politicalpreparedness.election.adapter.ElectionListener
+import com.example.android.politicalpreparedness.repository.Repository
 
 class ElectionsFragment: Fragment() {
 
@@ -23,8 +25,9 @@ class ElectionsFragment: Fragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        val application = requireNotNull(this.activity).application
-        val viewModelFactory = ElectionsViewModelFactory(application)
+        val database = ElectionDatabase.getInstance(requireContext())
+        val repository = Repository(database)
+        val viewModelFactory = ElectionsViewModelFactory(repository)
         electionsViewModel = ViewModelProvider(this, viewModelFactory).get(ElectionsViewModel::class.java)
 
         val binding = FragmentElectionBinding.inflate(inflater, container, false)
@@ -32,13 +35,11 @@ class ElectionsFragment: Fragment() {
 
         binding.electionViewModel = electionsViewModel
 
-        //TODO: Link elections to voter info
-
         upcomingElectionsListAdapter = ElectionListAdapter(ElectionListener { election ->
             electionsViewModel.onElectionClicked(election)
         })
-        savedElectionsListAdapter = ElectionListAdapter(ElectionListener {
-            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_LONG).show()
+        savedElectionsListAdapter = ElectionListAdapter(ElectionListener { election ->
+            electionsViewModel.onElectionClicked(election)
         })
 
         binding.upcomingElectionsRecycler.adapter = upcomingElectionsListAdapter
@@ -46,7 +47,7 @@ class ElectionsFragment: Fragment() {
 
         electionsViewModel.navigateToVoterInfo.observe(viewLifecycleOwner, { election ->
             if(election != null) {
-                this.findNavController().navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(election.id, election.division))
+                this.findNavController().navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(election, election.division))
                 electionsViewModel.navigationToVoterInfoComplete()
             }
         })
