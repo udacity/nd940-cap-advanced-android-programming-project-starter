@@ -1,7 +1,7 @@
 package com.example.android.politicalpreparedness.representative.model
 
-import com.example.android.politicalpreparedness.network.models.Office
-import com.example.android.politicalpreparedness.network.models.Official
+import com.example.android.politicalpreparedness.data.network.models.Office
+import com.example.android.politicalpreparedness.data.network.models.Official
 
 data class Representative (
         val official: Official,

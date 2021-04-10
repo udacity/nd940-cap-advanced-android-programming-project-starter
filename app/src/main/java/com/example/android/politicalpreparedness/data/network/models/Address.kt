@@ -1,4 +1,4 @@
-package com.example.android.politicalpreparedness.network.models
+package com.example.android.politicalpreparedness.data.network.models
 
 data class Address (
         val line1: String,
