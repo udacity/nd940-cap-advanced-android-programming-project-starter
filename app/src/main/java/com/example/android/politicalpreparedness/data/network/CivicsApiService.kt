@@ -32,7 +32,7 @@ interface CivicsApiService {
     //TODO: Add elections API Call
     @GET("elections")
     suspend fun getElections(
-            @Query("key") key: String
+            @Query("key") key: String = CivicsHttpClient.API_KEY
     ): ElectionResponse
 
     //TODO: Add voterinfo API Call

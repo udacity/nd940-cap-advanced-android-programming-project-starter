@@ -2,14 +2,17 @@ package com.example.android.politicalpreparedness.election
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.example.android.politicalpreparedness.data.Result
 import com.example.android.politicalpreparedness.data.network.helper.ApiStatus
 import com.example.android.politicalpreparedness.data.network.models.Election
 import com.example.android.politicalpreparedness.data.network.models.VoterInfoResponse
 import com.example.android.politicalpreparedness.data.repository.ElectionRepository
+import com.example.android.politicalpreparedness.data.succeeded
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
 //TODO: Construct ViewModel and provide election datasource
+@Suppress("UNCHECKED_CAST")
 class ElectionsViewModel(
         private val repository: ElectionRepository,
         applicationContext: Application
@@ -38,8 +41,23 @@ class ElectionsViewModel(
         viewModelScope.launch {
             _status.value = ApiStatus.LOADING
             try {
-                _savedUpcomingElections.value = repository.getRefreshedElections()
-                _upcomingElections.value = repository.getSavedElections()
+                when(val savedListResponse = repository.getSavedElections()) {
+                    is Result.Success<*> -> {
+                        _savedUpcomingElections.value = savedListResponse.data as List<Election>
+                    }
+                    is Result.Error -> {
+                        _status.value = ApiStatus.ERROR
+                    }
+                }
+
+                when(val refreshedListResponse = repository.getRefreshedElections()) {
+                    is Result.Success<*> -> {
+                        _upcomingElections.value = refreshedListResponse.data as List<Election>
+                    }
+                    is Result.Error -> {
+                        _status.value = ApiStatus.ERROR
+                    }
+                }
 
                 _status.value = ApiStatus.DONE
             } catch (e: Exception) {
