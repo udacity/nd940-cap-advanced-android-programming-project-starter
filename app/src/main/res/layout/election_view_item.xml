@@ -9,12 +9,14 @@
             type="com.example.android.politicalpreparedness.data.network.models.Election" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/representativePositionTextView"
+            android:id="@+id/electionNameTextView"
+            android:gravity="start"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -25,19 +27,23 @@
             android:layout_marginRight="16dp"
             android:text="@{election.name}"
             tools:text="President of the United States"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/representativeNameTextView"
-            app:layout_constraintTop_toBottomOf="@id/representativePositionTextView"
-            app:layout_constraintStart_toStartOf="@id/representativePositionTextView"
+            android:id="@+id/electionDateTextView"
+            android:gravity="start"
+            app:layout_constraintTop_toBottomOf="@id/electionNameTextView"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:text="@{election.electionDay.toString()}"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             tools:text="Donald J. Trump"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

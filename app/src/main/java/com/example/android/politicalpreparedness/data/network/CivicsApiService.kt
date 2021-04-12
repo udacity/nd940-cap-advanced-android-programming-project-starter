@@ -1,5 +1,7 @@
 package com.example.android.politicalpreparedness.data.network
 
+import com.example.android.politicalpreparedness.data.network.jsonadapter.DateAdapter
+import com.example.android.politicalpreparedness.data.network.jsonadapter.ElectionAdapter
 import com.example.android.politicalpreparedness.data.network.models.ElectionResponse
 import com.example.android.politicalpreparedness.data.network.models.RepresentativeResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -14,6 +16,8 @@ private const val BASE_URL = "https://www.googleapis.com/civicinfo/v2/"
 
 // TODO: Add adapters for Java Date and custom adapter ElectionAdapter (included in project)
 private val moshi = Moshi.Builder()
+        .add(ElectionAdapter())
+        .add(DateAdapter())
         .add(KotlinJsonAdapterFactory())
         .build()
 

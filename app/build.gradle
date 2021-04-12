@@ -68,11 +68,14 @@ dependencies {
     implementation "com.squareup.moshi:moshi-adapters:$version_moshi"
 
     //Koin
-//    implementation "org.koin:koin-android:$version_koin"
-//    implementation "org.koin:koin-androidx-viewmodel:$version_koin"
+    implementation "org.koin:koin-android:$version_koin"
+    implementation "org.koin:koin-androidx-viewmodel:$version_koin"
 
     // Glide
     //TODO: Add Glide Implementation
+
+    // Interceptor
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
 
     //Room
     implementation "androidx.room:room-ktx:$version_room"

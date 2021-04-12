@@ -4,6 +4,7 @@ import com.example.android.politicalpreparedness.data.network.models.Division
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson
 
+
 class ElectionAdapter {
     @FromJson
     fun divisionFromJson (ocdDivisionId: String): Division {

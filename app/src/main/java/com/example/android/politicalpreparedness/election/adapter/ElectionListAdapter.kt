@@ -17,6 +17,7 @@ class ElectionListAdapter(private val clickListener: ElectionListener): ListAdap
 
     //TODO: Bind ViewHolder
     override fun onBindViewHolder(holder: ElectionViewHolder, position: Int) {
+        holder.itemView.setOnClickListener { clickListener.onClick(getItem(position)) }
         holder.bind(getItem(position))
     }
 }
@@ -26,7 +27,6 @@ class ElectionListAdapter(private val clickListener: ElectionListener): ListAdap
 class ElectionViewHolder(private val binding: ElectionViewItemBinding): RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Election) {
         binding.election = item
-
         binding.executePendingBindings()
     }
 
