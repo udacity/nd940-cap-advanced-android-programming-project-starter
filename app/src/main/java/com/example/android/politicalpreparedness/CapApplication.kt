@@ -31,7 +31,6 @@ class CapApplication: Application() {
         }
 
         startKoin {
-//            androidContext(this@CapApplication)
             modules(listOf(module))
         }
     }

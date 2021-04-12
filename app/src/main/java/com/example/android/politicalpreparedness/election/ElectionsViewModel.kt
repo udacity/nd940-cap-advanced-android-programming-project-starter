@@ -3,6 +3,8 @@ package com.example.android.politicalpreparedness.election
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.android.politicalpreparedness.data.Result
+import com.example.android.politicalpreparedness.data.network.CivicsApi
+import com.example.android.politicalpreparedness.data.network.CivicsApiService
 import com.example.android.politicalpreparedness.data.network.helper.ApiStatus
 import com.example.android.politicalpreparedness.data.network.models.Election
 import com.example.android.politicalpreparedness.data.network.models.VoterInfoResponse
@@ -68,8 +70,15 @@ class ElectionsViewModel(
     }
 
     //TODO: Create functions to navigate to saved or upcoming election voter info
-    fun displayVoterInfo(voterInfo: VoterInfoResponse) {
-        _navigateToSelectedVoterInfo.value = voterInfo
+    fun displayVoterInfo(election: Election) {
+        viewModelScope.launch {
+            val voterInfo = CivicsApi.retrofitService.getVoterInfo(
+                    address = "${election.division.state}, ${election.division.country}",
+                    electionId = election.id
+            )
+
+            _navigateToSelectedVoterInfo.value = voterInfo
+        }
     }
 
     fun displayVoterInfoComplete() {
