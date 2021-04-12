@@ -12,5 +12,5 @@ import com.example.android.politicalpreparedness.election.adapter.ElectionListAd
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Election>?) {
     val adapter = recyclerView.adapter as ElectionListAdapter
-    adapter.submitList(data)
+    adapter.submitList(data ?: listOf())
 }

@@ -12,7 +12,7 @@ class ElectionLocalDataSource(
     }
 
     override suspend fun getElections(): List<Election> {
-        TODO("Not yet implemented")
+        return electionDao.getElections()
     }
 
     override suspend fun getElectionById(id: String): Election? {

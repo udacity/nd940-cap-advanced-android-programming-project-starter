@@ -1,23 +1,15 @@
 package com.example.android.politicalpreparedness.election
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.politicalpreparedness.R
-import com.example.android.politicalpreparedness.data.database.ElectionDatabase
-import com.example.android.politicalpreparedness.data.repository.DefaultElectionRepository
-import com.example.android.politicalpreparedness.data.repository.ElectionLocalDataSource
-import com.example.android.politicalpreparedness.data.repository.ElectionRemoteDataSource
 import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
 import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
 import com.example.android.politicalpreparedness.election.adapter.ElectionListener
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ElectionsFragment: Fragment() {
@@ -25,16 +17,17 @@ class ElectionsFragment: Fragment() {
     private lateinit var binding: FragmentElectionBinding
 
     //TODO: Declare ViewModel
-    private val viewModel: ElectionsViewModel by viewModels<ElectionsViewModel> {
-        ElectionsViewModelFactory(
-                DefaultElectionRepository(
-                        electionLocalDataSource = ElectionLocalDataSource(ElectionDatabase.getInstance(requireActivity().applicationContext).electionDao),
-                        electionRemoteDataSource = ElectionRemoteDataSource()
-                ),
-                requireActivity().application
-        )
-    }
+//    private val viewModel: ElectionsViewModel by viewModels<ElectionsViewModel> {
+//        ElectionsViewModelFactory(
+//                DefaultElectionRepository(
+//                        electionLocalDataSource = ElectionLocalDataSource(ElectionDatabase.getInstance(requireActivity().applicationContext).electionDao),
+//                        electionRemoteDataSource = ElectionRemoteDataSource()
+//                ),
+//                requireActivity().application
+//        )
+//    }
 
+    private val viewModel: ElectionsViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -64,15 +57,17 @@ class ElectionsFragment: Fragment() {
 
         binding.upcomingRecyclerView.adapter = upcomingAdapter
 
+        val savedAdapter = ElectionListAdapter(
+                ElectionListener {
+
+                }
+        )
+
+        binding.savedRecyclerView.adapter = savedAdapter
+
         //TODO: Populate recycler adapters
+        viewModel.getSavedAndRemoteElections()
 
         return binding.root
     }
-
-    override fun onResume() {
-        super.onResume()
-
-        viewModel.getSavedAndRemoteElections()
-    }
-
 }

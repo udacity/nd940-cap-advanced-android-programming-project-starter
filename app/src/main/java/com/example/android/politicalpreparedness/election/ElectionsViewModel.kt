@@ -14,9 +14,8 @@ import java.lang.Exception
 //TODO: Construct ViewModel and provide election datasource
 @Suppress("UNCHECKED_CAST")
 class ElectionsViewModel(
-        private val repository: ElectionRepository,
-        applicationContext: Application
-): AndroidViewModel(applicationContext) {
+        private val repository: ElectionRepository
+): ViewModel() {
 
     private val _navigateToSelectedVoterInfo = MutableLiveData<VoterInfoResponse>()
     val navigateToSelectedVoterInfo: LiveData<VoterInfoResponse>

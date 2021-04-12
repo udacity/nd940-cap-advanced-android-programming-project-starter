@@ -1,10 +1,10 @@
 package com.example.android.politicalpreparedness
 
 import android.app.Application
+import com.example.android.politicalpreparedness.data.database.ElectionDao
 import com.example.android.politicalpreparedness.data.database.ElectionDatabase
 import com.example.android.politicalpreparedness.data.repository.*
 import com.example.android.politicalpreparedness.election.ElectionsViewModel
-import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
@@ -17,30 +17,22 @@ class CapApplication: Application() {
             viewModel {
                 ElectionsViewModel(
                         get() as ElectionRepository,
-                        get()
                 )
             }
-
             single {
                 DefaultElectionRepository(
-                        get() as ElectionDataSource,
-                        get() as ElectionDataSource
-                )
+                        ElectionRemoteDataSource(),
+                        ElectionLocalDataSource(get())
+                ) as ElectionRepository
             }
             single {
-                ElectionRemoteDataSource()
-            }
-            single {
-                ElectionLocalDataSource(get())
-            }
-            single {
-                ElectionDatabase.getInstance(this@CapApplication).electionDao
+                ElectionDatabase.getInstance(this@CapApplication).electionDao as ElectionDao
             }
         }
-//
-//        startKoin {
+
+        startKoin {
 //            androidContext(this@CapApplication)
-//            modules(listOf(module))
-//        }
+            modules(listOf(module))
+        }
     }
 }

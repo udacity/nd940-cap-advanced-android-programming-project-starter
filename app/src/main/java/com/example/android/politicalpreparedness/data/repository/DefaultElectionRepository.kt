@@ -26,7 +26,7 @@ class DefaultElectionRepository(
 
     override suspend fun getSavedElections(): Result<List<Election>> = withContext(ioDispatcher) {
         return@withContext try {
-            Result.Success(electionRemoteDataSource.getElections())
+            Result.Success(electionLocalDataSource.getElections())
         } catch (ex: Exception) {
             Result.Error(ex.localizedMessage)
         }
