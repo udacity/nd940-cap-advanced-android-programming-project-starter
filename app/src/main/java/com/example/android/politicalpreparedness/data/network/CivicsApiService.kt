@@ -44,7 +44,8 @@ interface CivicsApiService {
     @GET("voterinfo")
     suspend fun getVoterInfo(
             @Query("address") address: String,
-            @Query("electionId") electionId: Int
+            @Query("electionId") electionId: String,
+            @Query("key") key: String = CivicsHttpClient.API_KEY
     ): VoterInfoResponse
 
     //TODO: Add representatives API Call

@@ -9,4 +9,6 @@ class VoterInfoResponse (
     val contests: String? = null, //TODO: Future Use
     val state: List<State>? = null,
     val electionElectionOfficials: List<ElectionOfficial>? = null
-)
+) {
+    val firstState: State? = state?.firstOrNull()
+}

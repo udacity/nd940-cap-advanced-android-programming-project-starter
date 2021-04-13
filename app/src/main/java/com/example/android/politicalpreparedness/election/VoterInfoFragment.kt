@@ -6,8 +6,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBinding
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class VoterInfoFragment : Fragment() {
+
+    private val viewModel: VoterInfoViewModel by viewModel()
 
     private lateinit var binding: FragmentVoterInfoBinding
 
@@ -21,6 +25,15 @@ class VoterInfoFragment : Fragment() {
                 container,
                 false
         )
+
+        val args = VoterInfoFragmentArgs.fromBundle(requireArguments())
+        val division = args.argDivision
+        val electionId = args.argElectionId
+
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+
+        viewModel.getVoterInfo(division, electionId)
 
         return binding.root
 

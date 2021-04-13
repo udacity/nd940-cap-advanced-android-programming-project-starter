@@ -19,9 +19,9 @@ class ElectionsViewModel(
         private val repository: ElectionRepository
 ): ViewModel() {
 
-    private val _navigateToSelectedVoterInfo = MutableLiveData<VoterInfoResponse>()
-    val navigateToSelectedVoterInfo: LiveData<VoterInfoResponse>
-        get() = _navigateToSelectedVoterInfo
+    private val _navigateToVoterInfo = MutableLiveData<Election>()
+    val navigateToVoterInfo: LiveData<Election>
+        get() = _navigateToVoterInfo
 
     private val _status = MutableLiveData<ApiStatus>()
     val status: LiveData<ApiStatus>
@@ -71,17 +71,10 @@ class ElectionsViewModel(
 
     //TODO: Create functions to navigate to saved or upcoming election voter info
     fun displayVoterInfo(election: Election) {
-        viewModelScope.launch {
-            val voterInfo = CivicsApi.retrofitService.getVoterInfo(
-                    address = "${election.division.state}, ${election.division.country}",
-                    electionId = election.id
-            )
-
-            _navigateToSelectedVoterInfo.value = voterInfo
-        }
+        _navigateToVoterInfo.value = election
     }
 
     fun displayVoterInfoComplete() {
-        _navigateToSelectedVoterInfo.value = null
+        _navigateToVoterInfo.value = null
     }
 }

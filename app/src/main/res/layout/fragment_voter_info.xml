@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <!-- TODO: Add data binding node for Voter Info ViewModel -->
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.android.politicalpreparedness.election.VoterInfoViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,6 +18,7 @@
         <!-- TODO: Add title to toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/election_name"
+            app:title="@{viewModel.voterInfo.election.name}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/default_padding"
@@ -26,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_padding"
             app:layout_constraintTop_toBottomOf="@id/election_name"
+            android:text="@{viewModel.voterInfo.election.electionDay.toString()}"
             tools:text="12 November 2055" />
 
         <!-- TODO: Add visual styling and content -->
@@ -33,6 +40,7 @@
             android:id="@+id/state_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{viewModel.voterInfo.firstState.name}"
             app:layout_constraintTop_toBottomOf="@id/election_date"
             app:layout_constraintStart_toStartOf="@id/election_date" />
 
@@ -77,6 +85,14 @@
             app:layout_constraintStart_toStartOf="@id/election_date" />
 
         <!-- TODO: Add button to save election to Room -->
+        <Button
+            android:id="@+id/saveButton"
+            android:text=""
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

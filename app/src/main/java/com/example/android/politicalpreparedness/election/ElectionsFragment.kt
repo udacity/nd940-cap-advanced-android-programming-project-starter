@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
 import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
@@ -50,15 +51,21 @@ class ElectionsFragment: Fragment() {
 
         val savedAdapter = ElectionListAdapter(
                 ElectionListener {
-
+                    viewModel.displayVoterInfo(it)
                 }
         )
 
         binding.savedRecyclerView.adapter = savedAdapter
 
-        viewModel.navigateToSelectedVoterInfo.observe(viewLifecycleOwner, Observer {
-            Log.d("TAG", it.toString())
-            viewModel.displayVoterInfoComplete()
+        viewModel.navigateToVoterInfo.observe(viewLifecycleOwner, { election ->
+            election?.let {
+                findNavController().navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(
+                        it.id,
+                        it.division
+                ))
+
+                viewModel.displayVoterInfoComplete()
+            }
         })
 
         //TODO: Populate recycler adapters

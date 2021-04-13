@@ -6,7 +6,7 @@ import java.util.*
 
 @Entity(tableName = "election_table")
 data class Election(
-        @PrimaryKey val id: Int,
+        @PrimaryKey val id: String,
         @ColumnInfo(name = "name")val name: String,
         @ColumnInfo(name = "electionDay")val electionDay: Date,
         @Embedded(prefix = "division_") @Json(name="ocdDivisionId") val division: Division
