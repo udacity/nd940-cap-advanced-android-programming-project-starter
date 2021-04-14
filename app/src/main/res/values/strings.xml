@@ -5,7 +5,13 @@
     <string name="upcoming_elections">UPCOMING ELECTIONS</string>
     <string name="saved_elections">SAVED ELECTIONS</string>
     <string name="political_preparedness_app_logo">Political Preparedness App Logo</string>
-
+    <string name="voting_locations">Voting Locations</string>
+    <string name="election_information">Election Information</string>
+    <string name="ballot_information">Ballot Information</string>
+    <string name="mailing_address">Mailing Address</string>
+    <string name="follow_election">Follow Election</string>
+    <string name="unfollow_election">Unfollow Election</string>
+    <string name="no_mailing_address">None</string>
     <!-- TODO: Add necessary string values -->
 
 </resources>

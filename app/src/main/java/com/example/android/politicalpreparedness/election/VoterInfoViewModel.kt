@@ -9,10 +9,16 @@ import com.example.android.politicalpreparedness.data.database.ElectionDao
 import com.example.android.politicalpreparedness.data.network.CivicsApi
 import com.example.android.politicalpreparedness.data.network.models.Division
 import com.example.android.politicalpreparedness.data.network.models.VoterInfoResponse
+import com.example.android.politicalpreparedness.data.network.models.getBallotInfoUrl
+import com.example.android.politicalpreparedness.data.network.models.getVotingLocationFinderUrl
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class VoterInfoViewModel(private val dataSource: ElectionDao) : ViewModel() {
+
+    private val _urlString = MutableLiveData<String>()
+    val urlString: LiveData<String>
+        get() = _urlString
 
     private val _followElection = MutableLiveData<Boolean>()
     val followElection: LiveData<Boolean>
@@ -23,9 +29,10 @@ class VoterInfoViewModel(private val dataSource: ElectionDao) : ViewModel() {
     val voterInfo: LiveData<VoterInfoResponse>
         get() = _voterInfo
 
+    //TODO: Add var and methods to populate voter info
     fun getVoterInfo(division: Division, electionId: String) {
         viewModelScope.launch {
-            _followElection.value = dataSource.getElectionById(electionId) != null
+            _followElection.value = dataSource.getElectionById(electionId) == null
 
             val address = if (division.state.isNotEmpty()) {
                 "${division.state},${division.country}"
@@ -41,17 +48,25 @@ class VoterInfoViewModel(private val dataSource: ElectionDao) : ViewModel() {
         }
     }
 
-    //TODO: Add var and methods to populate voter info
-
     //TODO: Add var and methods to support loading URLs
+    fun loadVotingLocation() {
+        _urlString.value = _voterInfo.value?.firstState?.getVotingLocationFinderUrl()
+    }
+
+    fun loadBallotInformation() {
+        _urlString.value = _voterInfo.value?.firstState?.getBallotInfoUrl()
+    }
+
+    fun loadUrlComplete() {
+        _urlString.value = null
+    }
 
     //TODO: Add var and methods to save and remove elections to local database
     //TODO: cont'd -- Populate initial state of save button to reflect proper action based on election saved status
-
     fun saveElection() {
         _voterInfo.value?.election?.let { election ->
             viewModelScope.launch {
-                if (dataSource.getElectionById(election.id) == null) {
+                if (followElection.value == true) {
                     dataSource.insertElection(election)
                     _followElection.value = false
                 } else {
@@ -61,9 +76,7 @@ class VoterInfoViewModel(private val dataSource: ElectionDao) : ViewModel() {
             }
         }
     }
-
     /**
      * Hint: The saved state can be accomplished in multiple ways. It is directly related to how elections are saved/removed from the database.
      */
-
 }

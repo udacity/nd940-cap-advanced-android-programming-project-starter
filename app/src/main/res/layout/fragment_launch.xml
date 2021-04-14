@@ -26,11 +26,10 @@
 
         <Button
             android:id="@+id/upcomingButton"
+            style="@style/Button"
             app:layout_constraintStart_toStartOf="@id/representativeButton"
             app:layout_constraintEnd_toEndOf="@id/representativeButton"
             app:layout_constraintBottom_toTopOf="@id/representativeButton"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/white"
             android:layout_marginBottom="16dp"
             android:text="@string/upcoming_elections"
             android:layout_width="0dp"
@@ -40,8 +39,7 @@
 
         <Button
             android:id="@+id/representativeButton"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/white"
+            style="@style/Button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
