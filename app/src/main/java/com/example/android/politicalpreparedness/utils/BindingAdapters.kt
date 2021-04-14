@@ -1,12 +1,12 @@
 package com.example.android.politicalpreparedness.utils
 
+import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.politicalpreparedness.R
-import com.example.android.politicalpreparedness.data.network.jsonadapter.ElectionAdapter
 import com.example.android.politicalpreparedness.data.network.models.Election
 import com.example.android.politicalpreparedness.data.network.models.State
 import com.example.android.politicalpreparedness.data.network.models.getCorrespondenceAddress
@@ -31,4 +31,9 @@ fun getAddressFromState(textView: TextView, state: State?) {
 @BindingAdapter("followElection")
 fun updateFollowButton(button: Button, follow: Boolean?) {
     button.setText(if (follow == true) R.string.follow_election else R.string.unfollow_election)
+}
+
+@BindingAdapter("isVisible")
+fun updateVisibilityByStatus(view: View, visible: Boolean?) {
+   view.isVisible = visible ?: false
 }

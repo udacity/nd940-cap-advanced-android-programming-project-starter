@@ -116,5 +116,20 @@
             android:onClick="@{() -> viewModel.saveElection()}"
             android:layout_height="50dp"/>
 
+        <ProgressBar
+            android:id="@+id/progressCircular"
+            app:isVisible="@{viewModel.showLoading}"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            android:clickable="true"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/loading_animation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

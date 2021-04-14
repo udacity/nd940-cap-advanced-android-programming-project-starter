@@ -3,7 +3,6 @@ package com.example.android.politicalpreparedness.election
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android.politicalpreparedness.data.database.ElectionDao
 import com.example.android.politicalpreparedness.data.network.CivicsApi
@@ -11,11 +10,11 @@ import com.example.android.politicalpreparedness.data.network.models.Division
 import com.example.android.politicalpreparedness.data.network.models.VoterInfoResponse
 import com.example.android.politicalpreparedness.data.network.models.getBallotInfoUrl
 import com.example.android.politicalpreparedness.data.network.models.getVotingLocationFinderUrl
+import com.example.android.politicalpreparedness.utils.BaseViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class VoterInfoViewModel(private val dataSource: ElectionDao) : ViewModel() {
-
+class VoterInfoViewModel(private val dataSource: ElectionDao) : BaseViewModel() {
     private val _urlString = MutableLiveData<String>()
     val urlString: LiveData<String>
         get() = _urlString
@@ -32,6 +31,9 @@ class VoterInfoViewModel(private val dataSource: ElectionDao) : ViewModel() {
     //TODO: Add var and methods to populate voter info
     fun getVoterInfo(division: Division, electionId: String) {
         viewModelScope.launch {
+
+            showLoading.value = true
+
             _followElection.value = dataSource.getElectionById(electionId) == null
 
             val address = if (division.state.isNotEmpty()) {
@@ -42,8 +44,10 @@ class VoterInfoViewModel(private val dataSource: ElectionDao) : ViewModel() {
 
             try {
                 _voterInfo.value = CivicsApi.retrofitService.getVoterInfo(address, electionId)
+                showLoading.value = false
             } catch(e: Exception) {
-                Log.e("TAG", e.localizedMessage)
+                showLoading.value = false
+                Log.e("TAG", e.localizedMessage ?: "exception")
             }
         }
     }
