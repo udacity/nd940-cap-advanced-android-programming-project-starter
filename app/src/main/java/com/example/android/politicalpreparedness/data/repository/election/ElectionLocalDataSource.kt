@@ -1,6 +1,5 @@
-package com.example.android.politicalpreparedness.data.repository
+package com.example.android.politicalpreparedness.data.repository.election
 
-import com.example.android.politicalpreparedness.data.Result
 import com.example.android.politicalpreparedness.data.database.ElectionDao
 import com.example.android.politicalpreparedness.data.network.models.Election
 

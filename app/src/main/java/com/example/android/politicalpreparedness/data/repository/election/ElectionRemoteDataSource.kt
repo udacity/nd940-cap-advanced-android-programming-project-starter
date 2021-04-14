@@ -1,4 +1,4 @@
-package com.example.android.politicalpreparedness.data.repository
+package com.example.android.politicalpreparedness.data.repository.election
 
 import com.example.android.politicalpreparedness.data.network.CivicsApi
 import com.example.android.politicalpreparedness.data.network.models.Election

@@ -1,20 +1,27 @@
 package com.example.android.politicalpreparedness.election
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.android.politicalpreparedness.data.database.ElectionDao
-import com.example.android.politicalpreparedness.data.network.CivicsApi
+import com.example.android.politicalpreparedness.R
+import com.example.android.politicalpreparedness.data.Result
 import com.example.android.politicalpreparedness.data.network.models.Division
 import com.example.android.politicalpreparedness.data.network.models.VoterInfoResponse
 import com.example.android.politicalpreparedness.data.network.models.getBallotInfoUrl
 import com.example.android.politicalpreparedness.data.network.models.getVotingLocationFinderUrl
+import com.example.android.politicalpreparedness.data.repository.election.ElectionRepository
+import com.example.android.politicalpreparedness.data.repository.voterInfo.VoterInfoRepository
 import com.example.android.politicalpreparedness.utils.BaseViewModel
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
-class VoterInfoViewModel(private val dataSource: ElectionDao) : BaseViewModel() {
+class VoterInfoViewModel(
+        private val application: Application,
+        private val voterInfoRepository: VoterInfoRepository,
+        private val electionRepository: ElectionRepository
+
+) : BaseViewModel() {
     private val _urlString = MutableLiveData<String>()
     val urlString: LiveData<String>
         get() = _urlString
@@ -34,7 +41,7 @@ class VoterInfoViewModel(private val dataSource: ElectionDao) : BaseViewModel() 
 
             showLoading.value = true
 
-            _followElection.value = dataSource.getElectionById(electionId) == null
+            _followElection.value = electionRepository.getElectionById(electionId) is Result.Success
 
             val address = if (division.state.isNotEmpty()) {
                 "${division.state},${division.country}"
@@ -42,12 +49,15 @@ class VoterInfoViewModel(private val dataSource: ElectionDao) : BaseViewModel() 
                 division.country
             }
 
-            try {
-                _voterInfo.value = CivicsApi.retrofitService.getVoterInfo(address, electionId)
-                showLoading.value = false
-            } catch(e: Exception) {
-                showLoading.value = false
-                Log.e("TAG", e.localizedMessage ?: "exception")
+            when(val result = voterInfoRepository.getVoterInfo(address, electionId)) {
+                is Result.Success<*> -> {
+                    _voterInfo.value = result.data as VoterInfoResponse
+                    showLoading.value = false
+                }
+                is Result.Error -> {
+                    showLoading.value = false
+                    showErrorMessage.value = application.resources.getString(R.string.voter_info_error)
+                }
             }
         }
     }
@@ -71,10 +81,10 @@ class VoterInfoViewModel(private val dataSource: ElectionDao) : BaseViewModel() 
         _voterInfo.value?.election?.let { election ->
             viewModelScope.launch {
                 if (followElection.value == true) {
-                    dataSource.insertElection(election)
+                    electionRepository.saveElection(election)
                     _followElection.value = false
                 } else {
-                    dataSource.deleteElectionById(election.id)
+                    electionRepository.deleteElectionById(election.id)
                     _followElection.value = true
                 }
             }

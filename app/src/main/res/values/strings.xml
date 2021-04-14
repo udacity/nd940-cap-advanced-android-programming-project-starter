@@ -12,6 +12,6 @@
     <string name="follow_election">Follow Election</string>
     <string name="unfollow_election">Unfollow Election</string>
     <string name="no_mailing_address">None</string>
-    <!-- TODO: Add necessary string values -->
+    <string name="voter_info_error">Voter Info could not be retrieved</string>
 
 </resources>

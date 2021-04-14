@@ -3,7 +3,7 @@ package com.example.android.politicalpreparedness.election
 import androidx.lifecycle.*
 import com.example.android.politicalpreparedness.data.Result
 import com.example.android.politicalpreparedness.data.network.models.Election
-import com.example.android.politicalpreparedness.data.repository.ElectionRepository
+import com.example.android.politicalpreparedness.data.repository.election.ElectionRepository
 import com.example.android.politicalpreparedness.utils.BaseViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
