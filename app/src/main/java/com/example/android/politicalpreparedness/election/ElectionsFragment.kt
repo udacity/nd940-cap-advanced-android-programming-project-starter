@@ -68,9 +68,6 @@ class ElectionsFragment: Fragment() {
             }
         })
 
-        //TODO: Populate recycler adapters
-        viewModel.getSavedAndRemoteElections()
-
         return binding.root
     }
 }

@@ -37,8 +37,13 @@ class ElectionsViewModel(
     val savedUpcomingElections: LiveData<List<Election>>
         get() = _savedUpcomingElections
 
+    //TODO: Populate recycler adapters
+    init {
+        getSavedAndRemoteElections()
+    }
+
     //TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
-    fun getSavedAndRemoteElections() {
+    private fun getSavedAndRemoteElections() {
         viewModelScope.launch {
             _status.value = ApiStatus.LOADING
             try {
