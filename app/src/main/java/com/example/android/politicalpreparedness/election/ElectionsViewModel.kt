@@ -30,37 +30,43 @@ class ElectionsViewModel(
 
     //TODO: Populate recycler adapters
     init {
-        getSavedAndRemoteElections()
+        getRemoteElections()
     }
 
     //TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
-    private fun getSavedAndRemoteElections() {
+    private fun getRemoteElections() {
         viewModelScope.launch {
             showLoading.value = true
+            try {
+                when(val refreshedListResponse = repository.getRefreshedElections()) {
+                    is Result.Success<*> -> {
+                        _upcomingElections.value = refreshedListResponse.data as List<Election>
+                        showLoading.value = false
+                    }
+                    is Result.Error -> {
+                        showLoading.value = false
+                    }
+                }
+            } catch (e: Exception) {
+                showLoading.value = false
+                _upcomingElections.value = listOf()
+            }
+        }
+    }
+
+    fun getSavedElections() {
+        viewModelScope.launch {
             try {
                 when(val savedListResponse = repository.getSavedElections()) {
                     is Result.Success<*> -> {
                         _savedUpcomingElections.value = savedListResponse.data as List<Election>
                     }
-                    is Result.Error -> {
-                        showLoading.value = false
+                    else -> {
+                        _savedUpcomingElections.value = listOf()
                     }
                 }
-
-                when(val refreshedListResponse = repository.getRefreshedElections()) {
-                    is Result.Success<*> -> {
-                        _upcomingElections.value = refreshedListResponse.data as List<Election>
-                    }
-                    is Result.Error -> {
-                        showLoading.value = false
-                    }
-                }
-
-                showLoading.value = false
             } catch (e: Exception) {
-                showLoading.value = false
                 _savedUpcomingElections.value = listOf()
-                _upcomingElections.value = listOf()
             }
         }
     }

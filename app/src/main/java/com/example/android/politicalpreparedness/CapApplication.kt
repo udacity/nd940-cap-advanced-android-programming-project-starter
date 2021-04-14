@@ -30,7 +30,7 @@ class CapApplication: Application() {
             }
             viewModel {
                 VoterInfoViewModel(
-                        androidContext(this@CapApplication),
+                        get(),
                         get() as VoterInfoRepository,
                         get() as ElectionRepository,
                 )
@@ -38,7 +38,7 @@ class CapApplication: Application() {
             single {
                 DefaultVoterInfoRepository(
                         VoterInfoRemoteDataSource()
-                )
+                ) as VoterInfoRepository
             }
             single {
                 DefaultElectionRepository(
@@ -53,6 +53,7 @@ class CapApplication: Application() {
 
         startKoin {
             modules(listOf(module))
+            androidContext(this@CapApplication)
         }
     }
 }

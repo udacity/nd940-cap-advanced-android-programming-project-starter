@@ -7,7 +7,7 @@ class ElectionLocalDataSource(
         private val electionDao: ElectionDao
 ): ElectionDataSource {
     override suspend fun insertElection(election: Election) {
-        TODO("Not yet implemented")
+        electionDao.insertElection(election)
     }
 
     override suspend fun getElections(): List<Election> {
@@ -15,14 +15,14 @@ class ElectionLocalDataSource(
     }
 
     override suspend fun getElectionById(id: String): Election? {
-        TODO("Not yet implemented")
+        return electionDao.getElectionById(id)
     }
 
     override suspend fun deleteElectionById(id: String) {
-        TODO("Not yet implemented")
+        electionDao.deleteElectionById(id)
     }
 
     override suspend fun deleteCompleteElections() {
-        TODO("Not yet implemented")
+        electionDao.deleteCompleteElections()
     }
 }

@@ -4,5 +4,5 @@ import com.example.android.politicalpreparedness.data.Result
 import com.example.android.politicalpreparedness.data.network.models.VoterInfoResponse
 
 interface VoterInfoRepository {
-    suspend fun getVoterInfo(address: String, electionId: String): Result<VoterInfoResponse>
+    suspend fun getVoterInfo(address: String, electionId: Int): Result<VoterInfoResponse>
 }

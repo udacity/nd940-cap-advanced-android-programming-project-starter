@@ -41,7 +41,7 @@ class VoterInfoViewModel(
 
             showLoading.value = true
 
-            _followElection.value = electionRepository.getElectionById(electionId) is Result.Success
+            _followElection.value = electionRepository.getElectionById(electionId) is Result.Error
 
             val address = if (division.state.isNotEmpty()) {
                 "${division.state},${division.country}"
@@ -49,7 +49,7 @@ class VoterInfoViewModel(
                 division.country
             }
 
-            when(val result = voterInfoRepository.getVoterInfo(address, electionId)) {
+            when(val result = voterInfoRepository.getVoterInfo(address, electionId.toInt())) {
                 is Result.Success<*> -> {
                     _voterInfo.value = result.data as VoterInfoResponse
                     showLoading.value = false

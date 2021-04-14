@@ -12,7 +12,7 @@ class DefaultVoterInfoRepository(
         private val remoteDataSource: VoterInfoDataSource,
         private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ): VoterInfoRepository {
-    override suspend fun getVoterInfo(address: String, electionId: String): Result<VoterInfoResponse> = withContext(ioDispatcher) {
+    override suspend fun getVoterInfo(address: String, electionId: Int): Result<VoterInfoResponse> = withContext(ioDispatcher) {
         return@withContext try {
             Result.Success(remoteDataSource.getVoterInfo(address, electionId))
         } catch (ex: Exception) {
