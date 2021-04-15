@@ -13,5 +13,11 @@
     <string name="unfollow_election">Unfollow Election</string>
     <string name="no_mailing_address">None</string>
     <string name="voter_info_error">Voter Info could not be retrieved</string>
+    <string name="use_my_location">USE MY LOCATION</string>
+    <string name="my_representatives">My Representatives</string>
+    <string name="address_line_1">Address Line 1</string>
+    <string name="address_line_2">Address Line 2</string>
+    <string name="city">City</string>
+    <string name="zip">Zip</string>
 
 </resources>

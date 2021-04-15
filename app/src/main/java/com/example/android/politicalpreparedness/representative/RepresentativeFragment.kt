@@ -53,7 +53,12 @@ class DetailFragment : Fragment() {
                 false
         )
 
-        checkLocationPermissions()
+        binding.lifecycleOwner = this
+
+
+        binding.buttonLocation.setOnClickListener {
+            checkLocationPermissions()
+        }
 
         return binding.root
     }
@@ -99,6 +104,7 @@ class DetailFragment : Fragment() {
         fusedLocationClient?.lastLocation?.addOnCompleteListener(requireActivity()) { task ->
             if (task.isSuccessful && task.result != null) {
                 Log.i("TAG", "IS SUCCESSFUL")
+                geoCodeLocation(task.result)
             }
             else {
                 Log.w("TAG", "getLastLocation:exception: ${ task.exception}")

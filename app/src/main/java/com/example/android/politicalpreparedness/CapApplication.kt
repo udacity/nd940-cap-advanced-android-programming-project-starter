@@ -22,7 +22,7 @@ class CapApplication: Application() {
     override fun onCreate() {
         super.onCreate()
 
-        val module = module {
+        val viewModels = module {
             viewModel {
                 ElectionsViewModel(
                         get() as ElectionRepository,
@@ -35,11 +35,17 @@ class CapApplication: Application() {
                         get() as ElectionRepository,
                 )
             }
+        }
+
+        val voterInfoRepository = module {
             single {
                 DefaultVoterInfoRepository(
                         VoterInfoRemoteDataSource()
                 ) as VoterInfoRepository
             }
+        }
+
+        val electionRepository = module {
             single {
                 DefaultElectionRepository(
                         ElectionRemoteDataSource(),
@@ -52,7 +58,11 @@ class CapApplication: Application() {
         }
 
         startKoin {
-            modules(listOf(module))
+            modules(listOf(
+                    viewModels,
+                    voterInfoRepository,
+                    electionRepository
+            ))
             androidContext(this@CapApplication)
         }
     }
