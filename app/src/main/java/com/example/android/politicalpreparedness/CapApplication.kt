@@ -8,11 +8,15 @@ import com.example.android.politicalpreparedness.data.repository.election.Defaul
 import com.example.android.politicalpreparedness.data.repository.election.ElectionLocalDataSource
 import com.example.android.politicalpreparedness.data.repository.election.ElectionRemoteDataSource
 import com.example.android.politicalpreparedness.data.repository.election.ElectionRepository
+import com.example.android.politicalpreparedness.data.repository.representative.DefaultRepresentativeRepository
+import com.example.android.politicalpreparedness.data.repository.representative.RepresentativeRemoteDataSource
+import com.example.android.politicalpreparedness.data.repository.representative.RepresentativeRepository
 import com.example.android.politicalpreparedness.data.repository.voterInfo.DefaultVoterInfoRepository
 import com.example.android.politicalpreparedness.data.repository.voterInfo.VoterInfoRemoteDataSource
 import com.example.android.politicalpreparedness.data.repository.voterInfo.VoterInfoRepository
 import com.example.android.politicalpreparedness.election.ElectionsViewModel
 import com.example.android.politicalpreparedness.election.VoterInfoViewModel
+import com.example.android.politicalpreparedness.representative.RepresentativeViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -33,6 +37,11 @@ class CapApplication: Application() {
                         get(),
                         get() as VoterInfoRepository,
                         get() as ElectionRepository,
+                )
+            }
+            viewModel {
+                RepresentativeViewModel(
+                        get()
                 )
             }
         }
@@ -57,11 +66,20 @@ class CapApplication: Application() {
             }
         }
 
+        val representativeRepository = module {
+            single {
+                DefaultRepresentativeRepository(
+                        RepresentativeRemoteDataSource()
+                ) as RepresentativeRepository
+            }
+        }
+
         startKoin {
             modules(listOf(
                     viewModels,
                     voterInfoRepository,
-                    electionRepository
+                    electionRepository,
+                    representativeRepository
             ))
             androidContext(this@CapApplication)
         }

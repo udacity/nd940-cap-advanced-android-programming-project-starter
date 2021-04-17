@@ -17,14 +17,18 @@ import androidx.fragment.app.Fragment
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.data.network.models.Address
+import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import org.koin.android.ext.android.bind
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.Locale
 
 private const val REQUEST_LOCATION_PERMISSION = 1
 
 class DetailFragment : Fragment() {
 
+    private val viewModel: RepresentativeViewModel by viewModel()
     private lateinit var binding: FragmentRepresentativeBinding
     private var fusedLocationClient: FusedLocationProviderClient? = null
 
@@ -54,7 +58,10 @@ class DetailFragment : Fragment() {
         )
 
         binding.lifecycleOwner = this
+        binding.viewModel = viewModel
 
+        val adapter = RepresentativeListAdapter()
+        binding.representativeRecyclerView.adapter = adapter
 
         binding.buttonLocation.setOnClickListener {
             checkLocationPermissions()
@@ -104,7 +111,8 @@ class DetailFragment : Fragment() {
         fusedLocationClient?.lastLocation?.addOnCompleteListener(requireActivity()) { task ->
             if (task.isSuccessful && task.result != null) {
                 Log.i("TAG", "IS SUCCESSFUL")
-                geoCodeLocation(task.result)
+                val address = geoCodeLocation(task.result)
+                viewModel.getRepresentativesByAddress(address)
             }
             else {
                 Log.w("TAG", "getLastLocation:exception: ${ task.exception}")

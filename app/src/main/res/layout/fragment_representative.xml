@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:motion="http://schemas.android.com/tools">
 
     <!-- TODO: Add data binding node -->
@@ -16,6 +17,21 @@
         android:layout_width="match_parent"
         app:layoutDescription="@xml/fragment_representative_scene">
 
+        <ProgressBar
+            android:id="@+id/progressCircular"
+            app:isVisible="@{viewModel.showLoading}"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            android:clickable="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/loading_animation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/search_title"
@@ -28,6 +44,7 @@
         <!-- TODO: Add visual styling and content -->
         <EditText
             android:id="@+id/address_line_1"
+            android:text="@{viewModel.address.line1}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/address_line_1"
@@ -39,6 +56,7 @@
         <!-- TODO: Add visual styling and content -->
         <EditText
             android:id="@+id/address_line_2"
+            android:text="@{viewModel.address.line2}"
             android:hint="@string/address_line_2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -51,6 +69,7 @@
         <!-- TODO: Add visual styling and content -->
         <EditText
             android:id="@+id/city"
+            android:text="@{viewModel.address.city}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/city"
@@ -64,6 +83,7 @@
         <!-- TODO: Add visual styling and content -->
         <Spinner
             android:id="@+id/state"
+            app:positionByValue="@{viewModel.address.state}"
             android:entries="@array/states"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -78,6 +98,7 @@
         <!-- TODO: Add visual styling and content -->
         <EditText
             android:id="@+id/zip"
+            android:text="@{viewModel.address.zip}"
             android:hint="@string/zip"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -120,14 +141,14 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/representativeRecyclerView"
+            app:representativeListData="@{viewModel.representatives}"
             android:layout_marginTop="@dimen/min_padding"
-            android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/representative_title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp" />
 
         <!-- TODO: Add visual styling and content -->
