@@ -10,6 +10,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/representativeItemContainer"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -25,7 +26,7 @@
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
             android:padding="2dp"
-            app:imageUrl="@{representative.official.photoUrl}"
+            app:profileImage="@{representative.official.photoUrl}"
             tools:background="@drawable/ic_profile"
             android:contentDescription="@string/official_image" />
 

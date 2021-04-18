@@ -11,6 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/electionListContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.android.politicalpreparedness.MainActivity">
@@ -87,11 +88,9 @@
             android:layout_height="0dp"
             android:indeterminate="true"
             android:indeterminateDrawable="@drawable/loading_animation"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
+            app:layout_constraintBottom_toBottomOf="@+id/upcomingRecyclerView"
+            app:layout_constraintEnd_toEndOf="@+id/upcomingRecyclerView"
+            app:layout_constraintStart_toStartOf="@+id/upcomingRecyclerView"
+            app:layout_constraintTop_toTopOf="@+id/upcomingRecyclerView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.politicalpreparedness.R
-import com.example.android.politicalpreparedness.databinding.RepresentativeViewItemBinding
+import com.example.android.politicalpreparedness.databinding.ItemRepresentativeViewBinding
 import com.example.android.politicalpreparedness.data.network.models.Channel
 import com.example.android.politicalpreparedness.representative.model.Representative
 
@@ -19,7 +19,7 @@ class RepresentativeListAdapter: ListAdapter<Representative, RepresentativeViewH
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepresentativeViewHolder {
         return RepresentativeViewHolder.from(
-                RepresentativeViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                ItemRepresentativeViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
@@ -29,7 +29,7 @@ class RepresentativeListAdapter: ListAdapter<Representative, RepresentativeViewH
     }
 }
 
-class RepresentativeViewHolder(private val binding: RepresentativeViewItemBinding): RecyclerView.ViewHolder(binding.root) {
+class RepresentativeViewHolder(private val binding: ItemRepresentativeViewBinding): RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Representative) {
         binding.representative = item
@@ -46,7 +46,7 @@ class RepresentativeViewHolder(private val binding: RepresentativeViewItemBindin
     //TODO: Add companion object to inflate ViewHolder (from)
 
     companion object {
-        fun from(binding: RepresentativeViewItemBinding): RepresentativeViewHolder {
+        fun from(binding: ItemRepresentativeViewBinding): RepresentativeViewHolder {
             return RepresentativeViewHolder(binding = binding)
         }
     }

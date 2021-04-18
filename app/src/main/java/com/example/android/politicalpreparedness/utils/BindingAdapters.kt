@@ -25,15 +25,6 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Election>?) {
     adapter.submitList(data ?: listOf())
 }
 
-/**
- * When there is no data (data is null), hide the [RecyclerView], otherwise show it.
- */
-@BindingAdapter("representativeListData")
-fun bindRecyclerViewForRepresentative(recyclerView: RecyclerView, data: List<Representative>?) {
-    val adapter = recyclerView.adapter as RepresentativeListAdapter
-    adapter.submitList(data ?: listOf())
-}
-
 @BindingAdapter("addressFromState")
 fun getAddressFromState(textView: TextView, state: State?) {
     state?.getCorrespondenceAddress().also {
@@ -49,29 +40,4 @@ fun updateFollowButton(button: Button, follow: Boolean?) {
 @BindingAdapter("isVisible")
 fun updateVisibilityByStatus(view: View, visible: Boolean?) {
    view.isVisible = visible ?: false
-}
-
-@Suppress("UNCHECKED_CAST")
-@BindingAdapter("positionByValue")
-fun setItemByValue(spinner: Spinner, value: String?) {
-    if (value == null) return
-    val adapter = spinner.adapter as ArrayAdapter<String>
-    val position = adapter.getPosition(value)
-    spinner.setSelection(position)
-}
-
-/**
- * Uses the Glide library to load an image by URL into an [ImageView]
- */
-@BindingAdapter("imageUrl")
-fun bindImage(imgView: ImageView, imgUrl: String?) {
-    imgUrl?.let {
-        val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
-        Glide.with(imgView.context)
-                .load(imgUri)
-                .apply(RequestOptions()
-                        .placeholder(R.drawable.ic_profile)
-                        .error(R.drawable.ic_broken_image))
-                .into(imgView)
-    }
 }

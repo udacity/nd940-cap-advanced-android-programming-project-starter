@@ -13,6 +13,7 @@
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/representativeSearchContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutDescription="@xml/fragment_representative_scene">
@@ -91,7 +92,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/city"
                 app:layout_constraintTop_toTopOf="@id/city"
-                app:positionByValue="@{viewModel.address.state}" />
+                app:stateValue="@{viewModel.address.state}" />
 
             <!-- TODO: Add data binding value -->
             <!-- TODO: Add visual styling and content -->
