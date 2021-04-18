@@ -11,4 +11,5 @@ open class BaseViewModel: ViewModel() {
     val showToast: SingleLiveEvent<String> = SingleLiveEvent()
     val showLoading: SingleLiveEvent<Boolean> = SingleLiveEvent()
     val showNoData: MutableLiveData<Boolean> = MutableLiveData()
+    val showRefreshing: SingleLiveEvent<Boolean> = SingleLiveEvent()
 }

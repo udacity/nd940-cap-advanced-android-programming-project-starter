@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -41,6 +42,10 @@ class ElectionsFragment: Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        viewModel.showErrorMessageInt.observe(this, {
+            Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
+        })
+
         val upcomingAdapter = ElectionListAdapter(
                 ElectionListener {
                     viewModel.displayVoterInfo(it)
@@ -56,6 +61,10 @@ class ElectionsFragment: Fragment() {
         )
 
         binding.savedRecyclerView.adapter = savedAdapter
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.getRemoteElections()
+        }
 
         viewModel.navigateToVoterInfo.observe(viewLifecycleOwner, { election ->
             election?.let {

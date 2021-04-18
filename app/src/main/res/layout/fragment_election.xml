@@ -39,19 +39,38 @@
 
 
         <!-- TODO: Add Saved Election Recycler and Header -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/upcomingRecyclerView"
-            android:layout_marginTop="16dp"
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            app:isRefreshing="@{viewModel.showRefreshing}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="@id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/upcomingHeaderTextView"
-            app:layout_constraintVertical_bias="0.0"
-            app:listData="@{viewModel.upcomingElections}" />
+            app:layout_constraintVertical_bias="0.098">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/upcomingRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:listData="@{viewModel.upcomingElections}" />
+
+            <ProgressBar
+                android:id="@+id/progressCircular"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clickable="true"
+                android:indeterminate="true"
+                android:indeterminateDrawable="@drawable/loading_animation"
+                android:visibility="invisible"
+                app:isVisible="@{viewModel.showLoading}"
+                tools:visibility="visible" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <TextView
             android:id="@+id/savedHeaderTextView"
@@ -78,19 +97,5 @@
             android:layout_width="match_parent"
             android:layout_height="0dp" />
 
-        <ProgressBar
-            android:id="@+id/progressCircular"
-            app:isVisible="@{viewModel.showLoading}"
-            android:visibility="invisible"
-            tools:visibility="visible"
-            android:clickable="true"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:indeterminate="true"
-            android:indeterminateDrawable="@drawable/loading_animation"
-            app:layout_constraintBottom_toBottomOf="@+id/upcomingRecyclerView"
-            app:layout_constraintEnd_toEndOf="@+id/upcomingRecyclerView"
-            app:layout_constraintStart_toStartOf="@+id/upcomingRecyclerView"
-            app:layout_constraintTop_toTopOf="@+id/upcomingRecyclerView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

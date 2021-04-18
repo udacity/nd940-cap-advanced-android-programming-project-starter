@@ -1,6 +1,7 @@
 package com.example.android.politicalpreparedness.election
 
 import androidx.lifecycle.*
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.data.Result
 import com.example.android.politicalpreparedness.data.network.models.Election
 import com.example.android.politicalpreparedness.data.repository.election.ElectionRepository
@@ -31,10 +32,11 @@ class ElectionsViewModel(
     //TODO: Populate recycler adapters
     init {
         getRemoteElections()
+        showRefreshing.value = false
     }
 
     //TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
-    private fun getRemoteElections() {
+    fun getRemoteElections() {
         viewModelScope.launch {
             showLoading.value = true
             try {
@@ -42,14 +44,19 @@ class ElectionsViewModel(
                     is Result.Success<*> -> {
                         _upcomingElections.value = refreshedListResponse.data as List<Election>
                         showLoading.value = false
+                        showRefreshing.value = false
                     }
                     is Result.Error -> {
                         showLoading.value = false
+                        showRefreshing.value = false
+                        showErrorMessageInt.value = R.string.error_occurs
                     }
                 }
             } catch (e: Exception) {
                 showLoading.value = false
+                showRefreshing.value = false
                 _upcomingElections.value = listOf()
+                showErrorMessageInt.value = R.string.error_occurs
             }
         }
     }

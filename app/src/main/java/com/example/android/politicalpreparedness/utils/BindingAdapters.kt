@@ -6,6 +6,7 @@ import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.android.politicalpreparedness.R
@@ -40,4 +41,9 @@ fun updateFollowButton(button: Button, follow: Boolean?) {
 @BindingAdapter("isVisible")
 fun updateVisibilityByStatus(view: View, visible: Boolean?) {
    view.isVisible = visible ?: false
+}
+
+@BindingAdapter("isRefreshing")
+fun SwipeRefreshLayout.showRefreshing(refreshing: Boolean?) {
+    isRefreshing = refreshing ?: false
 }
