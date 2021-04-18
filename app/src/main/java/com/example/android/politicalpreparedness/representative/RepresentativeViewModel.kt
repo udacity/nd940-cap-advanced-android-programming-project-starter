@@ -4,12 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.data.Result
 import com.example.android.politicalpreparedness.data.network.models.Address
 import com.example.android.politicalpreparedness.data.repository.representative.RepresentativeRepository
 import com.example.android.politicalpreparedness.representative.model.Representative
 import com.example.android.politicalpreparedness.utils.BaseViewModel
 import com.example.android.politicalpreparedness.utils.SingleLiveEvent
+import kotlinx.android.synthetic.main.fragment_representative.view.*
 import kotlinx.coroutines.launch
 
 class RepresentativeViewModel(
@@ -24,6 +26,14 @@ class RepresentativeViewModel(
     private val _representatives = SingleLiveEvent<List<Representative>>()
     val representatives: LiveData<List<Representative>>
         get() = _representatives
+
+    private val _listIsEmpty = SingleLiveEvent<Boolean>()
+    val listIsEmpty: LiveData<Boolean>
+        get() = _listIsEmpty
+
+    init {
+        _listIsEmpty.value = true
+    }
 
     //TODO: Create function to fetch representatives from API from a provided address
     //TODO: Create function get address from geo location
@@ -46,10 +56,18 @@ class RepresentativeViewModel(
                     val (offices, officials) = representativesResponse.data
                     showLoading.value = false
                     _representatives.value = offices.flatMap { office -> office.getRepresentatives(officials) }
+
+                    if (_representatives.value.isNullOrEmpty()) {
+                        showSnackBarInt.value = R.string.no_representative_search
+                    } else {
+                        _listIsEmpty.value = false
+                    }
                 }
                 is Result.Error -> {
                     showLoading.value = false
                     _representatives.value = listOf()
+                    _listIsEmpty.value = true
+                    showSnackBarInt.value = R.string.error_occurs
                 }
             }
         }

@@ -28,6 +28,7 @@
         <!-- TODO: Add visual styling -->
         <TextView
             android:id="@+id/election_date"
+            isVisible="@{viewModel.hasVoterInfo}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_padding"
@@ -41,6 +42,7 @@
         <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/state_header"
+            isVisible="@{viewModel.hasVoterInfo}"
             style="@style/Header"
             android:layout_marginTop="@dimen/default_padding"
             android:layout_width="wrap_content"
@@ -53,6 +55,7 @@
         <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/state_locations"
+            isVisible="@{viewModel.hasVoterInfo}"
             style="@style/Link"
             android:layout_marginTop="@dimen/default_padding"
             android:layout_width="wrap_content"
@@ -66,6 +69,7 @@
         <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/state_ballot"
+            isVisible="@{viewModel.hasVoterInfo}"
             style="@style/Link"
             android:layout_marginTop="@dimen/default_padding"
             android:layout_width="wrap_content"
@@ -84,6 +88,7 @@
         <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/state_correspondence_header"
+            isVisible="@{viewModel.hasVoterInfo}"
             style="@style/Subtitle"
             android:layout_marginTop="@dimen/default_padding"
             android:text="@string/mailing_address"
@@ -95,6 +100,7 @@
         <!-- TODO: Add data binding -->
         <TextView
             android:id="@+id/address"
+            isVisible="@{viewModel.hasVoterInfo}"
             tools:text="@string/no_mailing_address"
             android:layout_marginTop="@dimen/min_padding"
             app:addressFromState="@{viewModel.voterInfo.firstState}"
@@ -106,6 +112,7 @@
         <!-- TODO: Add button to save election to Room -->
         <Button
             android:id="@+id/saveButton"
+            isVisible="@{viewModel.hasVoterInfo}"
             style="@style/Button"
             app:followElection="@{viewModel.followElection}"
             tools:text="@string/follow_election"

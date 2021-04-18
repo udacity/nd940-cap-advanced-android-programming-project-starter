@@ -20,6 +20,7 @@ import com.example.android.politicalpreparedness.data.network.models.Address
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.Locale
@@ -40,7 +41,7 @@ class DetailFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
 
         //TODO: Establish bindings
 
@@ -75,6 +76,10 @@ class DetailFragment : Fragment() {
             val address = getAddressFromEditTexts()
             viewModel.getRepresentativesByAddress(address)
         }
+
+        viewModel.showSnackBarInt.observe(viewLifecycleOwner, {
+            Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
+        })
 
         return binding.root
     }
@@ -124,6 +129,7 @@ class DetailFragment : Fragment() {
                 viewModel.getRepresentativesByAddress(address)
             }
             else {
+                Snackbar.make(binding.root, R.string.no_address_found, Snackbar.LENGTH_LONG).show()
                 Log.w("TAG", "getLastLocation:exception: ${ task.exception}")
             }
         }
@@ -133,7 +139,12 @@ class DetailFragment : Fragment() {
         val geocoder = Geocoder(context, Locale.getDefault())
         return geocoder.getFromLocation(location.latitude, location.longitude, 1)
                 .map { address ->
-                    Address(address.thoroughfare, address.subThoroughfare, address.locality, address.adminArea, address.postalCode)
+                    Address(
+                            address.thoroughfare ?: "",
+                            address.subThoroughfare ?: "",
+                            address.locality ?: "",
+                            address.adminArea ?: "",
+                            address.postalCode ?: "")
                 }
                 .first()
     }

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 
 open class BaseViewModel: ViewModel() {
     val showErrorMessage: SingleLiveEvent<String> = SingleLiveEvent()
+    val showErrorMessageInt: SingleLiveEvent<Int> = SingleLiveEvent()
     val showSnackBar: SingleLiveEvent<String> = SingleLiveEvent()
     val showSnackBarInt: SingleLiveEvent<Int> = SingleLiveEvent()
     val showToast: SingleLiveEvent<String> = SingleLiveEvent()

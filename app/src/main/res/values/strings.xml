@@ -24,5 +24,7 @@
     <string name="twitter_page">twitter page</string>
     <string name="official_image">official image</string>
     <string name="representative_search">Representative Search</string>
-
+    <string name="no_representative_search">Representatives not found</string>
+    <string name="error_occurs">An error has occurred. Please, try again later.</string>
+    <string name="no_address_found">Address not found for your current location. Please, try filling the above form instead.</string>
 </resources>

@@ -55,7 +55,7 @@ class VoterInfoFragment : Fragment() {
             }
         })
 
-        viewModel.showErrorMessage.observe(this, {
+        viewModel.showErrorMessageInt.observe(this, {
             Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
             findNavController().popBackStack()
         })

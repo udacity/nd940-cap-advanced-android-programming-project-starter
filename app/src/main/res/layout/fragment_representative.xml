@@ -126,17 +126,8 @@
                 android:layout_height="50dp"
                 android:enabled="@{!viewModel.showLoading}"
                 android:text="@string/use_my_location"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_search" />
-
-            <!-- TODO: Add visual styling and content -->
-            <TextView
-                android:id="@+id/representative_title"
-                style="@style/Header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/my_representatives"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/button_location" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -150,10 +141,22 @@
             app:layout_constraintTop_toBottomOf="@id/fieldContainer"
             motion:visibilityMode="ignore">
 
+            <!-- TODO: Add visual styling and content -->
+            <TextView
+                android:id="@+id/representative_title"
+                style="@style/Header"
+                isVisible="@{!viewModel.listIsEmpty}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/my_representatives"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <!-- TODO: Add Representatives RecyclerView -->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/representativeRecyclerView"
+                isVisible="@{!viewModel.listIsEmpty}"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/min_padding"
@@ -161,20 +164,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/representative_title"
                 app:representativeListData="@{viewModel.representatives}" />
-
-            <!-- TODO: Add visual styling and content -->
-            <TextView
-                android:id="@+id/list_placeholder"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:gravity="center"
-                android:textAlignment="center"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                motion:visibilityMode="ignore" />
 
             <ProgressBar
                 android:id="@+id/progressCircular"
@@ -188,7 +179,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/representativeRecyclerView"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

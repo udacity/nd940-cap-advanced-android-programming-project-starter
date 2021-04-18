@@ -34,7 +34,6 @@ class CapApplication: Application() {
             }
             viewModel {
                 VoterInfoViewModel(
-                        get(),
                         get() as VoterInfoRepository,
                         get() as ElectionRepository,
                 )
@@ -81,7 +80,6 @@ class CapApplication: Application() {
                     electionRepository,
                     representativeRepository
             ))
-            androidContext(this@CapApplication)
         }
     }
 }

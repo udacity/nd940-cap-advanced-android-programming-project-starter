@@ -17,7 +17,6 @@ import com.example.android.politicalpreparedness.utils.BaseViewModel
 import kotlinx.coroutines.launch
 
 class VoterInfoViewModel(
-        private val application: Application,
         private val voterInfoRepository: VoterInfoRepository,
         private val electionRepository: ElectionRepository
 
@@ -34,6 +33,14 @@ class VoterInfoViewModel(
     private val _voterInfo = MutableLiveData<VoterInfoResponse>()
     val voterInfo: LiveData<VoterInfoResponse>
         get() = _voterInfo
+
+    private val _hasVoterInfo = MutableLiveData<Boolean>()
+    val hasVoterInfo: LiveData<Boolean>
+        get() = _hasVoterInfo
+
+    init {
+        _hasVoterInfo.value = false
+    }
 
     //TODO: Add var and methods to populate voter info
     fun getVoterInfo(division: Division, electionId: String) {
@@ -53,10 +60,12 @@ class VoterInfoViewModel(
                 is Result.Success<*> -> {
                     _voterInfo.value = result.data as VoterInfoResponse
                     showLoading.value = false
+                    _hasVoterInfo.value = true
                 }
                 is Result.Error -> {
                     showLoading.value = false
-                    showErrorMessage.value = application.resources.getString(R.string.voter_info_error)
+                    showErrorMessageInt.value = R.string.voter_info_error
+                    _hasVoterInfo.value = false
                 }
             }
         }
