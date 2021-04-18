@@ -19,5 +19,10 @@
     <string name="address_line_2">Address Line 2</string>
     <string name="city">City</string>
     <string name="zip">Zip</string>
+    <string name="web_site">Web site</string>
+    <string name="facebook_page">facebook page</string>
+    <string name="twitter_page">twitter page</string>
+    <string name="official_image">official image</string>
+    <string name="representative_search">Representative Search</string>
 
 </resources>

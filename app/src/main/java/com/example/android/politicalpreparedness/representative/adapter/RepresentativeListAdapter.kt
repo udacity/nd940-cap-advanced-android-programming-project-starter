@@ -97,5 +97,4 @@ class RepresentativeDiffCallback: DiffUtil.ItemCallback<Representative>() {
     override fun areContentsTheSame(oldItem: Representative, newItem: Representative): Boolean {
         return oldItem.official.name == newItem.official.name
     }
-
 }

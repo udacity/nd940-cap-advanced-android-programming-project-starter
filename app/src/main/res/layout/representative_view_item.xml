@@ -26,7 +26,8 @@
             android:adjustViewBounds="true"
             android:padding="2dp"
             app:imageUrl="@{representative.official.photoUrl}"
-            tools:background="@drawable/ic_profile"/>
+            tools:background="@drawable/ic_profile"
+            android:contentDescription="@string/official_image" />
 
         <TextView
             android:id="@+id/representativePositionTextView"
@@ -84,7 +85,8 @@
             android:layout_marginLeft="8dp"
             android:src="@drawable/ic_www"
             android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"
+            android:contentDescription="@string/web_site" />
 
         <ImageView
             android:id="@+id/facebookIcon"
@@ -96,7 +98,8 @@
             android:layout_marginLeft="8dp"
             android:src="@drawable/ic_facebook"
             android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"
+            android:contentDescription="@string/facebook_page" />
 
         <ImageView
             android:id="@+id/twitterIcon"
@@ -107,6 +110,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:src="@drawable/ic_twitter"
             android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"
+            android:contentDescription="@string/twitter_page" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -64,7 +64,16 @@ class DetailFragment : Fragment() {
         binding.representativeRecyclerView.adapter = adapter
 
         binding.buttonLocation.setOnClickListener {
+            hideKeyboard()
+
             checkLocationPermissions()
+        }
+
+        binding.buttonSearch.setOnClickListener {
+            hideKeyboard()
+
+            val address = getAddressFromEditTexts()
+            viewModel.getRepresentativesByAddress(address)
         }
 
         return binding.root
@@ -132,6 +141,16 @@ class DetailFragment : Fragment() {
     private fun hideKeyboard() {
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(requireView().windowToken, 0)
+    }
+
+    private fun getAddressFromEditTexts(): Address {
+        return Address(
+                line1 = binding.addressLine1.text.toString(),
+                line2 = binding.addressLine2.text.toString(),
+                city = binding.city.text.toString(),
+                state = binding.state.selectedItem as String,
+                zip = binding.zip.text.toString()
+        )
     }
 
 }

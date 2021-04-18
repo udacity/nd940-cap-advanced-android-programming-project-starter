@@ -1,11 +1,11 @@
 package com.example.android.politicalpreparedness.data.network.models
 
 data class Address (
-        val line1: String,
-        val line2: String? = null,
-        val city: String,
-        val state: String,
-        val zip: String
+        var line1: String,
+        var line2: String? = null,
+        var city: String,
+        var state: String,
+        var zip: String
 ) {
     fun toFormattedString(): String {
         var output = line1.plus("\n")
