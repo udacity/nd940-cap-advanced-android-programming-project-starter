@@ -64,6 +64,7 @@ class ElectionsFragment: Fragment() {
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.getRemoteElections()
+            binding.swipeRefreshLayout.isRefreshing = false
         }
 
         viewModel.navigateToVoterInfo.observe(viewLifecycleOwner, { election ->

@@ -32,7 +32,6 @@ class ElectionsViewModel(
     //TODO: Populate recycler adapters
     init {
         getRemoteElections()
-        showRefreshing.value = false
     }
 
     //TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
@@ -44,17 +43,14 @@ class ElectionsViewModel(
                     is Result.Success<*> -> {
                         _upcomingElections.value = refreshedListResponse.data as List<Election>
                         showLoading.value = false
-                        showRefreshing.value = false
                     }
                     is Result.Error -> {
                         showLoading.value = false
-                        showRefreshing.value = false
                         showErrorMessageInt.value = R.string.error_occurs
                     }
                 }
             } catch (e: Exception) {
                 showLoading.value = false
-                showRefreshing.value = false
                 _upcomingElections.value = listOf()
                 showErrorMessageInt.value = R.string.error_occurs
             }

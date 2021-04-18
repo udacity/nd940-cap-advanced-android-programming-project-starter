@@ -42,8 +42,3 @@ fun updateFollowButton(button: Button, follow: Boolean?) {
 fun updateVisibilityByStatus(view: View, visible: Boolean?) {
    view.isVisible = visible ?: false
 }
-
-@BindingAdapter("isRefreshing")
-fun SwipeRefreshLayout.showRefreshing(refreshing: Boolean?) {
-    isRefreshing = refreshing ?: false
-}
