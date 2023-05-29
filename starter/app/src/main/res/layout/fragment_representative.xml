@@ -114,6 +114,5 @@
             motion:visibilityMode="ignore"
             app:layout_constraintTop_toBottomOf="@id/representative_title"
             app:layout_constraintBottom_toBottomOf="parent" />
-
     </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>
